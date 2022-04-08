@@ -7,7 +7,7 @@ const App = () => {
   const [data, setData] = useState('')
 
   useEffect(() => {
-    fetch('api/')
+    fetch('/api')
     .then(res => res.json())
     .then(data => setData(data.message))
     .catch(err => console.log(err))
