@@ -10,7 +10,7 @@ const App = () => {
     fetch('/api')
     .then(res => res.json())
     .then(data => {
-      console.log('in fetch!')
+      console.log('Welcome to Pomodojo!')
       setData(data.message)
     })
     .catch(err => console.log(err))
