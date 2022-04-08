@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "build": "cd Pomodojo && npm install && npm run build"
   },
   "engines": {
