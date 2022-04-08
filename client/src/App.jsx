@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './styles/App.css'
+import logo from './img/Pomopartylogov4.png';
+import './styles/App.scss';
 
 
 const App = () => { 
@@ -10,7 +10,7 @@ const App = () => {
     fetch('/api')
     .then(res => res.json())
     .then(data => {
-      console.log('Welcome to Pomodojo!')
+      console.log('Welcome to Pomoparty!')
       setData(data.message)
     })
     .catch(err => console.log(err))

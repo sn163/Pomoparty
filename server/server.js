@@ -20,7 +20,7 @@ const app = express();
 
   // Handle GET requests to /api route
   app.get('/api', (req, res) => {
-    res.json({ message: 'Welcome to Pomodojo!' });
+    res.json({ message: 'Treat yourself' });
   });
 
 
