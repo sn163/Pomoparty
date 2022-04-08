@@ -1,13 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './styles/App.css';
 
-function App() {
+
+const App = () => { 
+  const [data, setData] = useState('')
+
+  useEffect(() => {
+    fetch('api/')
+    .then(res => res.json())
+    .then(data => setData(data.message))
+    .catch(err => console.log(err))
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+         {!data ? 'Loading...' : data}
         </p>
         <a
           className="App-link"
