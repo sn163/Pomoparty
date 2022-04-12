@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import NavHeader from '../components/NavHeader';
 
-
-const Home = () => { 
-  const [data, setData] = useState(null)
+const Home = () => {
+  const [info, setInfo] = useState(null);
 
   useEffect(() => {
     fetch('/api')
-    .then(res => res.json())
-    .then(data => {
-      console.log('Welcome to Pomoparty!')
-      setData(data.message)
-    })
-    .catch(err => console.log(err))
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Welcome to Pomoparty!');
+        setInfo(data.message);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
-  
-        <NavHeader />  
-      
+    <div>
+      <NavHeader />
+      <div> {info ? info : 'loading...'} </div>
+    </div>
   );
-}
+};
 
 export default Home;

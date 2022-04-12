@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import React from 'react';
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../img/Pomopartylogov4.png';
 
 const NavHeader = () => {
@@ -7,7 +7,7 @@ const NavHeader = () => {
     <Navbar bg="app-primary" expand="lg">
       <Container>
         <Navbar.Brand href="#home">
-          <img className="App-logo" src={logo} />
+          <img className="App-logo" src={logo} alt="logo"/>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
