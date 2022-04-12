@@ -8,6 +8,7 @@
         "eslint:recommended",
         "react-app",
         "react-app/jest",
+        "shared-config",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:prettier/recommended"
