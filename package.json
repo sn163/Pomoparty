@@ -8,7 +8,8 @@
     "build": "cd client && npm install && npm run build"
   },
   "engines": {
-    "node": "14.17.3"
+    "node": "14.17.3",
+    "npm": "8.6.0"
   },
   "keywords": [],
   "author": "",
