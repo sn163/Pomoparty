@@ -3,5 +3,10 @@
         "Pomodojo",
         "pomoparty",
         "Pomopartylogov"
-    ]
+    ],
+    
+        "eslint.workingDirectories": [
+          "../client" // replace {PATH_TO_CLIENT} with you own path
+        ]
+      
 }
