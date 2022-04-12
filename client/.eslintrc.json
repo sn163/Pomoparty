@@ -20,10 +20,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "jsx-a11y"
     ],
     "rules": {
-        "pretter/prettier": "off",
+        "prettier/prettier": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
