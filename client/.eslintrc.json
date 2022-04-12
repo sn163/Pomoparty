@@ -30,6 +30,7 @@
         "react-hooks/exhaustive-deps": "warn",
         "no-console": "off",
         "no-unneeded-ternary": "off",
+        "no-undef": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/function-component-definition": [2, {
             "namedComponents": "arrow-function",
