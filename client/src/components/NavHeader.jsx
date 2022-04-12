@@ -7,7 +7,7 @@ const NavHeader = () => {
     <Navbar bg="app-primary" expand="lg">
       <Container>
         <Navbar.Brand href="#home">
-          <img className="App-logo" src={logo} alt="logo"/>
+          <img className="App-logo" src={logo} alt="logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
