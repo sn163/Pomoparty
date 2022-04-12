@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd client && npm install && npm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "engines": {
     "node": "14.17.3"
