@@ -5,10 +5,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "airbnb",
-        "plugin:prettier/recommended"
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,21 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "prettier"
+        "react"
     ],
     "rules": {
-        "prettier/prettier": "error",
-        "arrow-body-style": "off",
-        "prefer-arrow-callback": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/function-component-definition": [2, {
-            "namedComponents": "arrow-function",
-            "unnamedComponents":"arrow-function"
-          }]
     }
 }
