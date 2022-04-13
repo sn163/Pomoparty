@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import NavHeader from '../components/NavHeader';
 
 const Home = () => {
@@ -15,10 +16,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <Container fluid>
       <NavHeader />
       <div> {info ? info : 'loading...'} </div>
-    </div>
+    </Container>
   );
 };
 
