@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@typescript-eslint/typescript-estree": "^7.4.0",
+    "@vercel/speed-insights": "^1.0.10",
     "concurrently": "^8.2.2",
     "next": "14.1.4",
     "react": "^18",
