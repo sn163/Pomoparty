@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev --turbo\" \"tailwindcss --input ./src/app/globals.css --output ./src/app/output.css --watch\"",
     "build": "tailwindcss ./src/app/globals.css --output ./src/app/output.css && next build",
-    "start": "next start",
+    "start": "node ./src/app/server/server.js",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write src"
@@ -14,13 +14,17 @@
     "@typescript-eslint/typescript-estree": "^7.4.0",
     "@vercel/speed-insights": "^1.0.10",
     "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/eslint": "^8.56.6",
     "@types/eslint-config-prettier": "^6.11.3",
+    "@types/express": "^4.17.21",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
