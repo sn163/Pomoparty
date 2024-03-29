@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  mode: "jit",
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -19,15 +20,14 @@ const config: Config = {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        pomopartyTheme: {
           primary: "#EF5F5F",
           secondary: "#f6d860",
-          accent: "#37cdbe",
+          accent: "#f6a4a4",
           neutral: "#3d4451",
           "base-100": "#FFF",
         },
       },
-      "pastel",
     ],
   },
   plugins: [require("daisyui")],
