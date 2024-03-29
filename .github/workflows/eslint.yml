@@ -24,7 +24,7 @@ jobs:
         with:
           request-changes: true # optional
           fail-check: false # optional
-          directory: "./src" #optional
+          directory: "./" #optional
           targets: "." #optional
           eslint-lib-path: "./node_modules/eslint/lib/api.js" #optional
           eslint-bin-path: "node_modules/.bin/eslint" # optional
