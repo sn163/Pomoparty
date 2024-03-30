@@ -1,11 +1,14 @@
 import { CSSProperties, useEffect, useRef, useState } from "react";
 
+<<<<<<< HEAD
 type Timer = {
   hours: number;
   minutes: number;
   seconds: number;
 };
 
+=======
+>>>>>>> 0a5f06b04fc42c2fdecd90937191a12c5de5fdce
 type DashBoardProps = {
   startMin: number;
   startSec: number;
@@ -59,7 +62,7 @@ export default function Dashboard({ startMin, startSec }: DashBoardProps) {
   return (
     <main className="flex min-h-screen flex-col items-center space-y-10 p-24">
       <div
-        className="radial-progress bg-primary text-primary-content border-4 border-primary"
+        className="radial-progress bg-primary text-white border-4 border-primary"
         style={
           {
             "--value": percentage,
@@ -70,13 +73,13 @@ export default function Dashboard({ startMin, startSec }: DashBoardProps) {
         role="progressbar"
       >
         <div className="grid grid-flow-col gap-1 text-center auto-cols-max">
-          <div className="flex flex-col">
+          <div className="flex flex-col text-white">
             <span className="countdown font-mono text-2xl">
               <span style={{ "--value": minutes } as CSSProperties}></span>:
             </span>
             min
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-white">
             <span className="countdown font-mono text-2xl">
               <span style={{ "--value": seconds } as CSSProperties}></span>
             </span>
@@ -86,21 +89,21 @@ export default function Dashboard({ startMin, startSec }: DashBoardProps) {
       </div>
       <div className="flex space-x-5">
         <button
-          className="btn rounded-full btn-primary-content text-primary border-2 shadow-md"
+          className="btn rounded-full btn-primary text-white border-2 shadow-md"
           disabled={!!activeTimer}
           onClick={() => setActiveTimer(true)}
         >
           Start
         </button>
         <button
-          className="btn rounded-full btn-primary-content text-primary border-2 shadow-md"
+          className="btn rounded-full btn-primary text-white border-2 shadow-md"
           disabled={!activeTimer}
           onClick={() => pause()}
         >
           Pause
         </button>
         <button
-          className="btn rounded-full btn-primary-content text-primary border-2 shadow-md"
+          className="btn rounded-full btn-primary text-white border-2 shadow-md"
           onClick={() => restart()}
         >
           Reset
