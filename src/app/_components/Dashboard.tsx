@@ -1,14 +1,5 @@
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 
-<<<<<<< HEAD
-type Timer = {
-  hours: number;
-  minutes: number;
-  seconds: number;
-};
-
-=======
->>>>>>> 0a5f06b04fc42c2fdecd90937191a12c5de5fdce
 type DashBoardProps = {
   startMin: number;
   startSec: number;
@@ -19,6 +10,15 @@ export default function Dashboard({ startMin, startSec }: DashBoardProps) {
   const [minutes, setMinutes] = useState(startMin);
   const [seconds, setSeconds] = useState(startSec);
   const [percentage, setPercentage] = useState(100);
+
+  // turn 
+  const timeToSecs = (min:number, sec:number):number => min * 60 + sec;
+  
+  const totalStartSec = useMemo(
+    () => timeToSecs(startMin, startSec),
+    [startMin, startSec]
+  );
+
   const timerRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -41,8 +41,9 @@ export default function Dashboard({ startMin, startSec }: DashBoardProps) {
   }, [activeTimer, minutes, seconds]);
 
   useEffect(() => {
-    setPercentage(Math.abs((minutes / startMin) * 100 - 100));
-  }, [minutes, startMin]);
+    setPercentage(Math.abs((timeToSecs(minutes, seconds) / totalStartSec) * 100));
+    console.log((timeToSecs(minutes, seconds) / totalStartSec) * 100);
+  }, [minutes, seconds, totalStartSec]);
 
   const restart = () => {
     // Clears the interval to stop the timer from updating
