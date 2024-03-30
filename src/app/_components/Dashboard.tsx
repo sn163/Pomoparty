@@ -24,7 +24,7 @@ export default function Dashboard({
 	const [seconds, setSeconds] = useState(startSec);
 	const [percentage, setPercentage] = useState(100);
 
-	const timeToSecs = (hr: number = 0, min: number, sec: number): number =>
+	const timeToSecs = (hr: number, min: number, sec: number): number =>
 		hr * 3600 + min * 60 + sec;
 
 	const totalStartSec = useMemo(
