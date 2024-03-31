@@ -23,6 +23,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .btn-main {
+    @apply btn btn-primary border-2 bg-primary text-white shadow-md;
+  }
 }
 
 /* ------------- NAVBAR ---------------- */
