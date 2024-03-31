@@ -2,5 +2,9 @@
 import Dashboard from "./_components/Dashboard";
 
 export default function Home() {
-	return <Dashboard startHr={0} startMin={1} startSec={20} />;
+  return (
+    <main className="flex min-h-screen flex-col items-center space-y-10 p-24">
+      <Dashboard />
+    </main>
+  );
 }
