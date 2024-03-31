@@ -1,6 +1,5 @@
 import {
 	CSSProperties,
-	useCallback,
 	useEffect,
 	useMemo,
 	useRef,
@@ -9,7 +8,7 @@ import {
 
 type DashBoardProps = {
 	startHr: number;
-	startMin: number;
+	startMin: number;                         
 	startSec: number;
 };
 
@@ -40,7 +39,7 @@ export default function Dashboard({
 				if (seconds === 0) {
 					if (minutes === 0) {
 						if (hours === 0) {
-							setActiveTimer(false);
+							clearInterval(timerRef.current);
 						} else {
 							setHours(hours - 1);
 							setMinutes(59);
@@ -54,8 +53,6 @@ export default function Dashboard({
 					setSeconds(seconds - 1);
 				}
 			}, 1000);
-		} else {
-			clearInterval(timerRef.current);
 		}
 		return () => clearInterval(timerRef.current);
 	}, [activeTimer, hours, minutes, seconds]);
@@ -75,6 +72,7 @@ export default function Dashboard({
 	const pause = () => {
 		// Clears the interval to stop the timer from updating
 		setActiveTimer(false);
+		clearInterval(timerRef.current);
 	};
 
 	return (
