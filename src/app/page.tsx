@@ -1,6 +1,12 @@
 "use client";
 import Dashboard from "./_components/Dashboard";
+import NavBar from './_components/Navbar';
 
 export default function Home() {
-	return <Dashboard startHr={1} startMin={0} startSec={1} />;
+	return (
+		<>
+			<NavBar/>
+			<Dashboard startHr={0} startMin={0} startSec={5} />
+		</>
+	);
 }
