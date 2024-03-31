@@ -1,8 +1,6 @@
 "use client";
 import Dashboard from "./_components/Dashboard";
 
-import Dashboard from "./_components/Dashboard";
-
 export default function Home() {
-  return <Dashboard startMin={60} startSec={0} />;
+	return <Dashboard startHr={1} startMin={0} startSec={1} />;
 }
