@@ -20,6 +20,10 @@ body {
   overflow: hidden;
 }
 
+textarea {
+  resize: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
