@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from 'next/link';
 
 export default function NavBar() {
   return (
@@ -15,6 +16,9 @@ export default function NavBar() {
         />
       </a>
       <div className="flex space-x-6">
+        <Link href="/contact">
+          <button className="text-white">Contact</button>
+        </Link>
         <a>
           <button className="text-white">Features</button>
         </a>
