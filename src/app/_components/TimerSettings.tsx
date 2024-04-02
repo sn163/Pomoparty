@@ -1,44 +1,74 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
 type ModalProps = {
-  hr: {
-    startHr: number;
-    setStartHr: Dispatch<SetStateAction<number>>;
-  };
-  min: {
-    startMin: number;
-    setStartMin: Dispatch<SetStateAction<number>>;
-  };
-  sec: {
-    startSec: number;
-    setStartSec: Dispatch<SetStateAction<number>>;
-  };
+  inputHr: number;
+  setInputHr: Dispatch<SetStateAction<number>>;
+  inputMin: number;
+  setInputMin: Dispatch<SetStateAction<number>>;
+  inputSec: number;
+  setInputSec: Dispatch<SetStateAction<number>>;
+  setActiveTimer: Dispatch<SetStateAction<boolean>>;
+  setShowAlert: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function Modal({ hr, min, sec }: ModalProps) {
+export default function TimerSettings({ ...props }: ModalProps) {
+  const {
+    inputHr,
+    setInputHr,
+    inputMin,
+    setInputMin,
+    inputSec,
+    setInputSec,
+    setActiveTimer,
+    setShowAlert,
+  } = props;
   const [modalOpen, setModalOpen] = useState(false);
-  const [hourValue, setHourValue] = useState(hr.startHr);
-  const [minValue, setMinValue] = useState(min.startMin);
-  const [secValue, setSecValue] = useState(sec.startSec);
+  const [timeUnitsInput, setTimeUnitsInput] = useState({
+    hours: inputHr,
+    minutes: inputMin,
+    seconds: inputSec,
+  });
 
   const toggleModal = () => {
     const htmlModal = document.getElementById(
       "settings_modal",
     ) as HTMLDialogElement;
     if (!modalOpen) {
-      htmlModal.showModal();
+      setActiveTimer(false);
       setModalOpen(true);
+      htmlModal.showModal();
     } else {
-      setModalOpen(false);
+      applyInputTime("revert");
       htmlModal.close();
     }
   };
 
-  const handleSubmit = () => {
-    hr.setStartHr(hourValue);
-    min.setStartMin(minValue);
-    sec.setStartSec(secValue);
+  const applyInputTime = (applyType: "save" | "revert") => {
+    setActiveTimer(false);
+    if (applyType === "save") {
+      setShowAlert(true);
+      setInputHr(timeUnitsInput.hours);
+      setInputMin(timeUnitsInput.minutes);
+      setInputSec(timeUnitsInput.seconds);
+    } else {
+      setActiveTimer(false);
+      setTimeUnitsInput({
+        hours: inputHr,
+        minutes: inputMin,
+        seconds: inputSec,
+      });
+    }
+    setModalOpen(false);
   };
+
+  const handleInputs =
+    (inputField: string) => (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setTimeUnitsInput((prevState) => ({
+        ...prevState,
+        [inputField]: +value,
+      }));
+    };
 
   return (
     <>
@@ -56,7 +86,7 @@ export default function Modal({ hr, min, sec }: ModalProps) {
           <form
             method="dialog"
             className="modal-backdrop"
-            onSubmit={() => handleSubmit()}
+            onSubmit={() => applyInputTime("save")}
           >
             <h3 className="mx-auto text-center text-lg font-bold text-gray-400">
               POMODORO TIMER
@@ -68,11 +98,11 @@ export default function Modal({ hr, min, sec }: ModalProps) {
                   <span className="label-text">Hours</span>
                 </div>
                 <input
-                  onChange={(e) => setHourValue(+e.target.value)}
+                  onChange={handleInputs("hours")}
                   type="number"
                   min={0}
                   max={60}
-                  value={hourValue}
+                  value={timeUnitsInput.hours}
                   className="input input-bordered max-w-24 text-black"
                 />
               </label>
@@ -81,11 +111,11 @@ export default function Modal({ hr, min, sec }: ModalProps) {
                   <span className="label-text">Minutes</span>
                 </div>
                 <input
-                  onChange={(e) => setMinValue(+e.target.value)}
+                  onChange={handleInputs("minutes")}
                   type="number"
                   min={0}
                   max={60}
-                  value={minValue}
+                  value={timeUnitsInput.minutes}
                   className="input input-bordered max-w-24 text-black"
                 />
               </label>
@@ -94,27 +124,24 @@ export default function Modal({ hr, min, sec }: ModalProps) {
                   <span className="label-text">Seconds</span>
                 </div>
                 <input
-                  onChange={(e) => setSecValue(+e.target.value)}
+                  onChange={handleInputs("seconds")}
                   type="number"
                   min={0}
                   max={60}
-                  value={secValue}
+                  value={timeUnitsInput.seconds}
                   className="input input-bordered max-w-24 text-black"
                 />
               </label>
             </div>
             <div className="flex items-center justify-end space-x-3 pt-6">
               <button
+                type="button"
                 className="btn btn-outline btn-md border-2 border-primary text-primary shadow-md"
                 onClick={toggleModal}
               >
                 Close
               </button>
-              <button
-                type="submit"
-                className="btn-main text-white"
-                onClick={toggleModal}
-              >
+              <button type="submit" className="btn btn-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

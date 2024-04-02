@@ -21,15 +21,15 @@ const config: Config = {
     themes: [
       {
         pomopartyTheme: {
-          primary: "#EF5F5F",
-          secondary: "#f6d860",
-          accent: "#f6a4a4",
-          neutral: "#3d4451",
-          "base-100": "FFF",
+          primary: "#FF6666",
+          secondary: "#FF8989",
+          accent: "#FFEADD",
+          neutral: "#FF6666",
+          "base-100": "#FFF",
         },
       },
     ],
   },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
 export default config;
