@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write src",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.4.0",
