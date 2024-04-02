@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function NavBar() {
   return (
-    <div className="navbar nav-root drop-shadow-lg opacity-95 px-16 py-3">
+    <div className="nav-root navbar px-16 py-3 opacity-95 drop-shadow-lg">
       <a className="flex-1" href="/">
         <Image
           style={{ height: "auto", width: "auto" }}
@@ -16,12 +16,12 @@ export default function NavBar() {
       </a>
       <div className="flex space-x-6">
         <a>
-          <button className="text-white">Features</button>
+          <button className="prose text-white">Features</button>
         </a>
         <a>
-          <button className="text-white">Sign In</button>
+          <button className="prose text-white">Sign In</button>
         </a>
-        <button className="btn rounded-full btn-primary-content text-primary border-2 shadow-md">
+        <button className="btn btn-accent w-24 border-2 text-primary shadow-md">
           Sign Up
         </button>
       </div>
