@@ -1,122 +1,109 @@
 "use client";
 
-// import { useState } from "react";
+import { useState } from "react";
+import Hero from "../_components/Hero";
 
-// type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
+type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
 
-type ContactData = {
+type ContactFormData = {
   name: string;
   email: string;
   category: selectCategory;
   details: string;
 };
 
-const ContactUsSelectCategories = {};
-
 export default function Contact() {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [category, setCategory] = useState("none");
-  // const [details, setDetails] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [category, setCategory] = useState("none");
+  const [details, setDetails] = useState("");
 
+  const categories = [
+    { value: "bug", text: "I've noticed a Bug" },
+    { value: "account", text: "Issue with my Account" },
+    { value: "feedback", text: "I have some Feedback" },
+    { value: "other", text: "Other" },
+  ].map(({ value, text }, key) => (
+    <option value={value} key={`contactCategory${key}`}>
+      {text}
+    </option>
+  ));
 
-  const handleSubmit = (e): void => {
+  const handleSubmit = (event): void => {
+    event.preventDefault();
+    const { name, email, category, details } = event.target;
 
-    //  const formToBeSubmitted = {
-    //     name: e.target.name.name,
-    //     value: e.target.name.value
-    //  }
-
-        // console.log(e.target.email.name);
-    // console.log(e.target.email.value);
-    console.log(e.target);
-    const {name} = e.target;
-    console.log(name)
-    e.preventDefault();
-    const formToBeSubmitted = {
-      {name}
+    const formInputData = {
+      name: name.value,
+      email: email.value,
+      category: category.value,
+      details: details.value,
     };
 
-  // const handleInputs =
-  //   (inputField: string) => (event: ChangeEvent<HTMLInputElement>) => {
-  //     const { value } = event.target;
-  //     setTimeUnitsInput((prevState) => ({
-  //       ...prevState,
-  //       [inputField]: +value,
-  //     }));
-  //   };
+    // const formInputData = new FormData(event.currentTarget);
 
-
-
-    // Object.assign(
-    //   {},
-    //   ...e.target.map(({ name, value }) => ({ [name]: value })),
-    // );
-
-    console.log("formToBeSubmitted: ", formToBeSubmitted);
-
-    console.log(formToBeSubmitted);
+    // console.log(formInputData.get("name"));
+    // console.log(formInputData.get("email"));
+    // console.log(formInputData.get("category"));
+    // console.log(formInputData.get("details"));
+    // console.log(formInputData.values());
   };
 
   return (
     <main className="flex flex-col items-center space-y-4 p-20">
-      <div className="my-20 flex flex-col items-center" onSubmit={handleSubmit}>
-        <h1>Contact Us</h1>
-
-        <form className="flex flex-col items-center space-y-3">
-          {/* name */}
-          <label className="input input-bordered flex items-center gap-3">
-            Name
-            <input
-              name="name"
-              // onChange={handleChange}
-              type="text"
-              className="grow"
-              placeholder="Pomo Doro"
-            />
-          </label>
-          {/* email */}
-          <label className="input input-bordered flex items-center gap-3">
-            Email
-            <input
-              name="email"
-              // onChange={handleChange}
-              type="email"
-              className="grow"
-              placeholder="my@email.com"
-            />
-          </label>
-          {/* select category */}
-          <select
-            name="category"
-            // onChange={handleChange}
-            className="form-control select select-bordered flex items-center"
+      <div className="card w-full max-w-sm shrink-0 bg-primary shadow-2xl">
+        <div className="card-body flex flex-col items-center">
+          <h1 className="my-4 flex items-center text-5xl font-bold text-accent">
+            Contact Us
+          </h1>
+          <form
+            className="flex flex-col items-center space-y-3"
+            onSubmit={handleSubmit}
           >
-            <option disabled selected>
-              Pick a category
-            </option>
-            {categories}
-          </select>
-          {/* explain yoself */}
-          <textarea
-            name="details"
-            // onChange={handleChange}
-            placeholder="Please provide more details"
-            className="textarea textarea-bordered flex items-center gap-2 bg-base-100"
-          ></textarea>
-          {/* button */}
-          <button
-            type="submit"
-            value="Submit"
-            // onClick={(e) => {
-            //   console.log("in onClick: ", e.target);
-            //   // e.preventDefault();
-            // }}
-            className="btn-main rounded-full"
-          >
-            Submit
-          </button>
-        </form>
+            <label className="input input-bordered flex items-center gap-3">
+              Name
+              <input
+                name="name"
+                type="text"
+                className="grow"
+                placeholder="Pomo Doro"
+                required
+              />
+            </label>
+            <label className="input input-bordered flex items-center gap-3">
+              Email
+              <input
+                name="email"
+                type="email"
+                className="grow"
+                placeholder="my@email.com"
+                required
+              />
+            </label>
+            <select
+              name="category"
+              className="select select-bordered flex items-center"
+              required
+            >
+              <option disabled selected>
+                Pick a category
+              </option>
+              {categories}
+            </select>
+            <textarea
+              name="details"
+              placeholder="Please provide more details"
+              className="textarea textarea-bordered flex items-center gap-2 bg-base-100"
+            ></textarea>
+            <button
+              type="submit"
+              value="Submit"
+              className="btn btn-accent rounded-full"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </main>
   );
