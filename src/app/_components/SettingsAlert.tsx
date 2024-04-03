@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type SettingsAlertProps = {
   showAlert: boolean;
+  setShowAlert: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function SettingsAlert({ showAlert }: SettingsAlertProps) {
+export default function SettingsAlert({
+  showAlert,
+  setShowAlert,
+}: SettingsAlertProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -13,10 +17,11 @@ export default function SettingsAlert({ showAlert }: SettingsAlertProps) {
       // Automatically hide the message after 3 seconds (3000 milliseconds)
       const timeout = setTimeout(() => {
         setIsVisible(false);
+        setShowAlert(false);
       }, 3000);
       return () => clearTimeout(timeout);
     }
-  }, [showAlert]);
+  }, [showAlert, setShowAlert]);
 
   return (
     <div

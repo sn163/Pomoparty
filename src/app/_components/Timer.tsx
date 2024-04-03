@@ -8,68 +8,41 @@ import {
   useState,
 } from "react";
 import SettingsAlert from "./SettingsAlert";
+import Image from "next/image";
 
 type TimerProps = {
-  inputHr: number;
   inputMin: number;
-  inputSec: number;
   activeTimer: boolean;
   showAlert: boolean;
   setActiveTimer: Dispatch<SetStateAction<boolean>>;
+  setShowAlert: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function Timer({ ...props }: TimerProps) {
-  const {
-    inputHr,
-    inputMin,
-    inputSec,
-    activeTimer,
-    showAlert,
-    setActiveTimer,
-  } = props;
-  const [hours, setHours] = useState(inputHr);
+  const { inputMin, activeTimer, showAlert, setShowAlert, setActiveTimer } =
+    props;
   const [minutes, setMinutes] = useState(inputMin);
-  const [seconds, setSeconds] = useState(inputSec);
+  const [seconds, setSeconds] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const timerRef = useRef<NodeJS.Timeout>();
-
   const startButtonText =
-    inputHr === hours && inputMin === minutes && inputSec === seconds
-      ? "Start"
-      : "Resume";
+    inputMin === minutes && seconds === 0 ? "Start" : "Resume";
 
-  const timeToSecs = (hr: number, min: number, sec: number): number =>
-    hr * 3600 + min * 60 + sec;
+  const timeToSecs = (min: number, sec: number): number => min * 60 + sec;
 
-  const totalStartSec = useMemo(
-    () => timeToSecs(inputHr, inputMin, inputSec),
-    [inputHr, inputMin, inputSec],
-  );
-
-  useEffect(() => {
-    setHours(inputHr);
-  }, [inputHr]);
+  const totalStartSec = useMemo(() => timeToSecs(inputMin, 0), [inputMin]);
 
   useEffect(() => {
     setMinutes(inputMin);
+    setSeconds(0);
   }, [inputMin]);
-
-  useEffect(() => {
-    setSeconds(inputSec);
-  }, [inputSec]);
 
   useEffect(() => {
     if (activeTimer) {
       timerRef.current = setInterval(() => {
         if (seconds === 0) {
           if (minutes === 0) {
-            if (hours === 0) {
-              clearInterval(timerRef.current);
-            } else {
-              setHours(hours - 1);
-              setMinutes(59);
-              setSeconds(59);
-            }
+            clearInterval(timerRef.current);
           } else {
             setMinutes(minutes - 1);
             setSeconds(59);
@@ -80,53 +53,41 @@ export default function Timer({ ...props }: TimerProps) {
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [activeTimer, hours, minutes, seconds]);
+  }, [activeTimer, minutes, seconds]);
 
   useEffect(() => {
-    setPercentage(
-      100 - (timeToSecs(hours, minutes, seconds) / totalStartSec) * 100,
-    );
-  }, [totalStartSec, hours, minutes, seconds]);
+    setPercentage(100 - (timeToSecs(minutes, seconds) / totalStartSec) * 100);
+  }, [totalStartSec, minutes, seconds]);
 
-  const pause = () => {
-    // Clears the interval to stop the timer from updating
-    setActiveTimer(false);
-    clearInterval(timerRef.current);
-  };
-
-  const handleClick = () => {
-    !activeTimer ? setActiveTimer(true) : pause();
-  };
-
-  const restart = () => {
-    // Clears the interval to stop the timer from updating
-    setActiveTimer(false);
-    setHours(inputHr);
-    setMinutes(inputMin);
-    setSeconds(inputSec);
+  const handleClick = (actionType: "toggle" | "reset") => {
+    if (!activeTimer && actionType === "toggle") {
+      setActiveTimer(true);
+    } else {
+      setActiveTimer(false);
+      if (actionType === "toggle") {
+        clearInterval(timerRef.current);
+      } else if (actionType === "reset") {
+        setMinutes(inputMin);
+        setSeconds(0);
+      }
+    }
   };
 
   return (
-    <div className="flex flex-col items-center space-y-10">
-      <SettingsAlert showAlert={showAlert} />
+    <div className="flex flex-col items-center justify-center space-y-10">
+      <SettingsAlert showAlert={showAlert} setShowAlert={setShowAlert} />
       <div
         className="radial-progress border-4 border-primary bg-primary text-white"
         style={
           {
             "--value": percentage,
             "--size": "12rem",
-            "--thickness": "2px",
+            "--thickness": "4px",
           } as CSSProperties
         }
         role="progressbar"
       >
         <div className="grid auto-cols-max grid-flow-col gap-1 text-center">
-          <div className="prose prose-xl flex flex-col text-white">
-            <span className="countdown text-2xl text-white">
-              <span style={{ "--value": hours } as CSSProperties}></span>:
-            </span>
-            hr
-          </div>
           <div className="prose prose-xl flex flex-col text-white">
             <span className="prose-md prose countdown text-2xl text-white">
               <span style={{ "--value": minutes } as CSSProperties}></span>:
@@ -143,36 +104,51 @@ export default function Timer({ ...props }: TimerProps) {
       </div>
       <div className="flex space-x-5">
         <button
-          className="btn btn-primary min-w-24"
-          onClick={handleClick}
-          disabled={hours === 0 && minutes === 0 && seconds === 0}
+          className="group btn btn-primary min-w-28"
+          onClick={() => handleClick("toggle")}
+          disabled={minutes === 0 && seconds === 0}
         >
-          {!!activeTimer ? "Pause" : startButtonText}
+          {!!activeTimer ? (
+            <span className="flex w-full items-center justify-between">
+              <Image
+                src="/svg/pause.svg"
+                className="group-hover:animate-crescendo"
+                alt="pause"
+                height={14}
+                width={14}
+              />
+              Pause
+            </span>
+          ) : (
+            <span
+              className={`flex w-full items-center justify-between ${startButtonText === "Start" ? "pr-2" : ""}`}
+            >
+              <Image
+                src="/svg/play.svg"
+                className="group-hover:animate-crescendo"
+                alt="play"
+                height={14}
+                width={14}
+              />
+              {startButtonText}
+            </span>
+          )}
         </button>
         <button
-          className="group btn btn-primary min-w-20"
-          disabled={
-            inputHr === hours && inputMin === minutes && inputSec === seconds
-          }
-          onClick={() => restart()}
+          className="group btn btn-primary min-w-28 disabled:text-[#FFF]"
+          disabled={inputMin === minutes && seconds === 0}
+          onClick={() => handleClick("reset")}
         >
-          <div className="h-6 w-6 group-hover:animate-spin">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 64 64"
-              aria-labelledby="title"
-              aria-describedby="desc"
-              role="img"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-            >
-              <title>Reset</title>
-              <path
-                data-name="layer1"
-                d="M57.521 20.727L54.948 24.5A26.568 26.568 0 0 0 29 4 27.145 27.145 0 0 0 2 31a26.549 26.549 0 0 0 24 26.383V60h6V48h-6v3.321A20.513 20.513 0 0 1 8 31a21.138 21.138 0 0 1 21-21 20.556 20.556 0 0 1 20.19 16.259l-3.574-3.215-4.066 4.412L53.035 37.96 62 24z"
-                fill="#FFF"
-              ></path>
-            </svg>
-          </div>
+          <span className="flex w-full items-center justify-between">
+            <Image
+              src="/svg/reset.svg"
+              className="group-hover:animate-spin"
+              alt="reset"
+              height={23}
+              width={23}
+            />
+            Reset
+          </span>
         </button>
       </div>
     </div>
