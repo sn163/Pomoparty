@@ -40,9 +40,6 @@ textarea {
   .btn-accent {
     @apply border-2 text-white shadow-md;
   }
-  .test-theme {
-    @apply border-1 bg-primary text-whiterea
-  }
 }
 
 /* ------------- NAVBAR ---------------- */
