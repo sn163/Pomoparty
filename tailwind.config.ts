@@ -3,10 +3,11 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   mode: "jit",
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/_server/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/_components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/solo-timer/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -15,6 +16,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        crescendo: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.25)" },
+        },
+      },
+      animation: {
+        crescendo: "crescendo 0.5s alternate infinite ease-in-out;",
+      },
     },
   },
   daisyui: {
@@ -22,8 +32,11 @@ const config: Config = {
       {
         pomopartyTheme: {
           primary: "#FF6666",
+          "primary-content": "#FFF",
           secondary: "#FF8989",
+          "secondary-content": "#FFF",
           accent: "#FFEADD",
+          "accent-content": "#FFF",
           neutral: "#FF6666",
           "base-100": "#FFF",
         },
