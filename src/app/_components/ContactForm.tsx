@@ -1,22 +1,9 @@
 "use client";
 
 import { submitWeb3Form } from "@/actions/handleWeb3";
-import { useRef, useState } from "react";
-
-type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
-
-type ContactFormData = {
-  name: string;
-  email: string;
-  category: selectCategory;
-  message: string;
-};
+import { useRef } from "react";
 
 export default function ContactForm() {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [category, setCategory] = useState("none");
-  // const [message, setMessage] = useState("");
 
   const categories = [
     { value: "bug", text: "I've noticed a Bug" },
