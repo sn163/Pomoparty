@@ -24,6 +24,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+      <ContactForm />
     </main>
   );
 }
