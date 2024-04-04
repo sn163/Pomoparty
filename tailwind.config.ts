@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 const config: Config = {
   mode: "jit",
@@ -11,6 +12,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        neutral: colors.neutral,
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -37,7 +41,7 @@ const config: Config = {
           "secondary-content": "#FFF",
           accent: "#FFEADD",
           "accent-content": "#FFF",
-          neutral: "#FF6666",
+          neutral: "#FF8989",
           "base-100": "#FFF",
         },
       },

@@ -5,7 +5,7 @@ type SettingsAlertProps = {
   setShowAlert: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function SettingsAlert({
+export default function SaveSettingsAlert({
   showAlert,
   setShowAlert,
 }: SettingsAlertProps) {
