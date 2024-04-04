@@ -72,7 +72,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             placeholder="my@email.com"
-            className="input input-bordered" // onChange={(event) => setEmail(event.target.value)}
+            className="input input-bordered" 
             required
           />
         </div>
