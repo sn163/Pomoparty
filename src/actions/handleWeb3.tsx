@@ -1,43 +1,29 @@
 "use server";
 
-export async function submitWeb3Form(event): void {
-    event.preventDefault();
+export async function submitWeb3Form(formData: FormData) {
+    console.log("this event in submit web3form:  ", formData);
 
-    const formData = new FormData(event.target);
-
-    formData.append("access_key", "4042dbcb-3267-483f-9448-f185918686f8");
+    formData.append("access_key", "process.env.WEB3_KEY");
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: json,
-    });
+    try{
 
-    const result = await response.json();
-    if (result.success) {
-      console.log(result);
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json,
+      });
+
+      const result = await response.json();
+
+      return result
+
+    }catch (e){
+      throw new Error("Something went from in submitWeb3Form")
     }
-
-    // const { name, email, category, message } = event.target;
-
-    // const formInputData = {
-    //   name: name.value,
-    //   email: email.value,
-    //   category: category.value,
-    //   message: message.value,
-    // };
-
-    // const formInputData = new FormData(event.currentTarget);
-
-    // console.log(formInputData.get("name"));
-    // console.log(formInputData.get("email"));
-    // console.log(formInputData.get("category"));
-    // console.log(formInputData.get("message"));
-    // console.log(formInputData.values());
   }

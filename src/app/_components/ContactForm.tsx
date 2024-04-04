@@ -21,6 +21,8 @@ export default function ContactForm() {
 
   const ref = useRef<HTMLFormElement>(null);
 
+  const ref = useRef<HTMLFormElement>(null);
+
   return (
     <>
       <form
