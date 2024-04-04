@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Hero from "../_components/Hero";
 
 type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
 
@@ -76,9 +75,12 @@ export default function Contact() {
                 name="email"
                 type="email"
                 className="grow"
-                placeholder="my@email.com"
+                placeholder="email"
                 required
               />
+            </label>
+            <label className="label">
+              <span className="label-text">Password</span>
             </label>
             <select
               name="category"
@@ -86,7 +88,7 @@ export default function Contact() {
               required
             >
               <option disabled selected>
-                Pick a category
+                Select One
               </option>
               {categories}
             </select>
