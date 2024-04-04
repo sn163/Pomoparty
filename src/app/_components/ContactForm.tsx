@@ -1,7 +1,7 @@
 "use client";
 
 import { submitWeb3Form } from "@/actions/handleWeb3";
-// import { useState } from "react";
+import { useRef, useState } from "react";
 
 type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
 
@@ -12,7 +12,7 @@ type ContactFormData = {
   message: string;
 };
 
-export default function Contact() {
+export default function ContactForm() {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");
   // const [category, setCategory] = useState("none");
@@ -29,9 +29,18 @@ export default function Contact() {
     </option>
   ));
 
+  const ref = useRef<HTMLFormElement>(null);
+
   return (
     <>
-      <form className="card-body" onSubmit={submitWeb3Form}>
+      <form
+        ref={ref}
+        className="card-body"
+        action={async (formData) => {
+          const success = await submitWeb3Form(formData);
+          if (success) ref.current?.reset();
+        }}
+      >
         <div className="form-control">
           <label className="label">
             <span className="label-text">I&apos;d like to chat about...</span>
