@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TimerSettings from "./TimerSettings";
+import Settings from "./settings/Settings";
 import Timer from "./Timer";
 
 export default function Dashboard() {
@@ -18,7 +18,7 @@ export default function Dashboard() {
           setShowAlert,
         }}
       />
-      <TimerSettings
+      <Settings
         {...{
           inputMin,
           setInputMin,

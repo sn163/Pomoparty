@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import SettingsAlert from "./SettingsAlert";
+import SaveSettingsAlert from "./settings/SaveSettingsAlert";
 import Image from "next/image";
 
 type TimerProps = {
@@ -75,7 +75,7 @@ export default function Timer({ ...props }: TimerProps) {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-10">
-      <SettingsAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+      <SaveSettingsAlert showAlert={showAlert} setShowAlert={setShowAlert} />
       <div
         className="radial-progress border-4 border-primary bg-primary text-white"
         style={
