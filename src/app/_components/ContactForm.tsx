@@ -1,6 +1,6 @@
 "use client";
 
-import { submitWeb3Form } from "../actions/handleWeb3"
+import { submitWeb3Form } from "@/actions/handleWeb3"
 // import { useState } from "react";
 
 type selectCategory = "none" | "account" | "bug" | "feedback" | "other";
