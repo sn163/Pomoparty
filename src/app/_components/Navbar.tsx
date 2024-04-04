@@ -19,7 +19,7 @@ export default function NavBar() {
         <Link href="/duo-timer">
           <button className="prose text-white">Duo Session</button>
         </Link>
-<Link href="/contact">
+        <Link href="/contact">
           <button className="prose text-white">Contact</button>
         </Link>
         <a>

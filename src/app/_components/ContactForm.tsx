@@ -4,7 +4,6 @@ import { submitWeb3Form } from "@/actions/handleWeb3";
 import { useRef } from "react";
 
 export default function ContactForm() {
-
   const categories = [
     { value: "bug", text: "I've noticed a Bug" },
     { value: "account", text: "Issue with my Account" },
@@ -59,7 +58,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             placeholder="my@email.com"
-            className="input input-bordered" 
+            className="input input-bordered"
             required
           />
         </div>
