@@ -27,8 +27,8 @@ export default function ContactForm() {
         ref={ref}
         className="card-body"
         action={async (formData) => {
-          const success = await submitWeb3Form(formData);
-          if (success) ref.current?.reset();
+          const data = await submitWeb3Form(formData);
+          if (data.success) ref.current?.reset();
         }}
       >
         <div className="form-control">
