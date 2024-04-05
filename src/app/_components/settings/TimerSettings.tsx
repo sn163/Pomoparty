@@ -1,21 +1,23 @@
-import { SliderData } from "@/app/_utils/types";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { SettingsType } from "@/app/_utils/types";
 
 type TimerSettingsProps = {
-  sliderData: SliderData;
-  setSliderData: Dispatch<SetStateAction<SliderData>>;
+  tempSettings: SettingsType;
+  setTempSettings: Dispatch<SetStateAction<SettingsType>>;
 };
 
 export default function TimerSettings({
-  sliderData,
-  setSliderData,
+  tempSettings,
+  setTempSettings,
 }: TimerSettingsProps) {
+  const { pomodoroTime, breakTime, rounds } = tempSettings;
+
   const handleSliderInputs =
     (sliderType: string) => (event: ChangeEvent<HTMLInputElement>) => {
-      setSliderData((prevState) => ({
-        ...prevState,
+      setTempSettings({
+        ...tempSettings,
         [sliderType]: +event.target.value,
-      }));
+      });
     };
 
   return (
@@ -24,17 +26,15 @@ export default function TimerSettings({
       <label className="form-control w-full max-w-sm py-1.5">
         <div className="label justify-between">
           <span className="label-text">Pomodoro</span>
-          <span className="text-lg text-primary">
-            {sliderData.pomodoro + " min"}
-          </span>
+          <span className="text-lg text-primary">{pomodoroTime + " min"}</span>
         </div>
         <input
           type="range"
           min={1}
           max="60"
-          value={sliderData.pomodoro}
+          value={pomodoroTime}
           className="range range-primary range-sm"
-          onChange={handleSliderInputs("pomodoro")}
+          onChange={handleSliderInputs("pomodoroTime")}
         />
         <div className="mt-2 flex w-full justify-between px-0.5 text-xs text-base-content">
           <span>1</span>
@@ -46,17 +46,15 @@ export default function TimerSettings({
         <label className="form-control w-full py-1">
           <div className="label justify-between">
             <span className="label-text">Short Break</span>
-            <span className="text-lg text-primary">
-              {sliderData.break + " min"}
-            </span>
+            <span className="text-lg text-primary">{breakTime + " min"}</span>
           </div>
           <input
             type="range"
             min={1}
             max="30"
-            value={sliderData.break}
+            value={breakTime}
             className="range range-primary range-sm"
-            onChange={handleSliderInputs("break")}
+            onChange={handleSliderInputs("breakTime")}
           />
           <div className="mt-2 flex w-full justify-between px-0.5 text-xs text-base-content">
             <span>1</span>
@@ -67,13 +65,13 @@ export default function TimerSettings({
         <label className="form-control w-full py-1">
           <div className="label justify-between">
             <span className="label-text">Rounds</span>
-            <span className="text-lg text-primary">{sliderData.rounds}</span>
+            <span className="text-lg text-primary">{rounds}</span>
           </div>
           <input
             type="range"
             min={1}
             max="15"
-            value={sliderData.rounds}
+            value={rounds}
             className="range range-primary range-sm"
             onChange={handleSliderInputs("rounds")}
           />

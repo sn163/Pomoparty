@@ -1,27 +1,22 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useTimerContext } from "../context/TimerContext";
+import { updateSaveAlert } from "@/app/_utils/actions";
 
-type SettingsAlertProps = {
-  showAlert: boolean;
-  setShowAlert: Dispatch<SetStateAction<boolean>>;
-};
-
-export default function SaveSettingsAlert({
-  showAlert,
-  setShowAlert,
-}: SettingsAlertProps) {
+export default function SaveSettingsAlert() {
   const [isVisible, setIsVisible] = useState(false);
+  const { timer, dispatch } = useTimerContext();
 
   useEffect(() => {
-    if (showAlert) {
+    if (timer.showAlert) {
       setIsVisible(true);
       // Automatically hide the message after 3 seconds (3000 milliseconds)
       const timeout = setTimeout(() => {
         setIsVisible(false);
-        setShowAlert(false);
+        updateSaveAlert(dispatch, timer);
       }, 3000);
       return () => clearTimeout(timeout);
     }
-  }, [showAlert, setShowAlert]);
+  }, [timer, dispatch]);
 
   return (
     <div
