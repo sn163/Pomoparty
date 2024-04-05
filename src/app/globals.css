@@ -30,7 +30,6 @@ body {
   .btn-primary {
     @apply border-2 text-white shadow-md;
   }
-
   .btn-secondary {
     @apply border-2 text-white shadow-md;
   }
