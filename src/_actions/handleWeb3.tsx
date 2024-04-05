@@ -2,8 +2,6 @@
 
 export async function submitWeb3Form(formData: FormData) {
   try {
-    console.log("this event in submit web3form:  ", formData);
-
     formData.append("access_key", process.env.WEB3_KEY);
 
     const object = Object.fromEntries(formData);
@@ -19,11 +17,9 @@ export async function submitWeb3Form(formData: FormData) {
     });
 
     const result = await response.json();
-    console.log("handleWeb3 form successfully sent: ", result);
 
     return result;
   } catch (e) {
-    console.log(e);
     throw new Error("Something went from in submitWeb3Form");
   }
 }
