@@ -2,7 +2,7 @@ import ContactForm from "../_components/ContactForm";
 
 export default function ContactPage() {
   return (
-    <main className="bg-accent flex flex-col items-center space-y-4 p-20">
+    <main className="flex flex-col items-center space-y-4 bg-accent p-20">
       <div className="text-center text-black ">
         <h1 className="text-5xl font-bold">Contact Us</h1>
       </div>
