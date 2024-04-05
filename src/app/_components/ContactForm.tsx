@@ -1,19 +1,23 @@
 "use client";
 
 import { submitWeb3Form } from "@/actions/handleWeb3";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 
 export default function ContactForm() {
-  const categories = [
-    { value: "bug", text: "I've noticed a Bug" },
-    { value: "account", text: "Issue with my Account" },
-    { value: "feedback", text: "I have some Feedback" },
-    { value: "other", text: "Other" },
-  ].map(({ value, text }, key) => (
-    <option value={value} key={`contactCategory${key}`}>
-      {text}
-    </option>
-  ));
+  const categories = useMemo(
+    () =>
+      [
+        { value: "bug", text: "I've noticed a Bug" },
+        { value: "account", text: "Issue with my Account" },
+        { value: "feedback", text: "I have some Feedback" },
+        { value: "other", text: "Other" },
+      ].map(({ value, text }, key) => (
+        <option value={value} key={`contactCategory${key}`}>
+          {text}
+        </option>
+      )),
+    [],
+  );
 
   const ref = useRef<HTMLFormElement>(null);
 
