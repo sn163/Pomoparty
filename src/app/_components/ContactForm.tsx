@@ -1,6 +1,6 @@
 "use client";
 
-import { submitWeb3Form } from "@/_actions/handleWeb3";
+import { submitWeb3Form } from "@/app/_actions/handleWeb3";
 import { useMemo, useRef } from "react";
 
 export default function ContactForm() {
