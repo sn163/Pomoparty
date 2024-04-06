@@ -1,16 +1,47 @@
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import useSound from "node_modules/use-sound/dist";
+import { useTimerContext } from "../context/TimerContext";
+import { updateSoundSettings } from "@/app/_utils/actions";
 
 export default function NotificationSettings() {
-  const [soundOption, setSoundOption] = useState("Jingle");
-  const [volume, setVolume] = useState(0);
+  const { timer, dispatch } = useTimerContext();
+  const { sound } = timer.settings;
   const dropdownRef = useRef<HTMLDetailsElement>(null);
+  const [playJingle, { stop: stopJingle }] = useSound("/sounds/jingle.mp3", {
+    volume: 0.5,
+  });
+  const [playRetro, { stop: stopRetro }] = useSound("/sounds/retro.mp3", {
+    volume: 0.5,
+  });
+  const [playDigital, { stop: stopDigital }] = useSound("/sounds/digital.mp3", {
+    volume: 0.5,
+  });
 
-  const handleSoundSelect = (sound: "Jingle" | "Retro" | "Digital") => {
+  const stopAllSounds = () => {
+    stopDigital();
+    stopRetro();
+    stopJingle();
+  };
+
+  const handleSoundSelect = (sound: "Jingle" | "Retro" | "Digital" | "Off") => {
     if (dropdownRef.current?.hasAttribute("open")) {
       dropdownRef.current?.removeAttribute("open");
     }
-    setSoundOption(sound);
+    stopAllSounds();
+    if (sound !== "Off") {
+      if (sound === "Jingle") {
+        playJingle();
+      } else if (sound === "Retro") {
+        playRetro();
+      } else {
+        playDigital();
+      }
+    }
+    updateSoundSettings(dispatch, {
+      ...timer,
+      settings: { ...timer.settings, sound: sound },
+    });
   };
 
   return (
@@ -22,8 +53,8 @@ export default function NotificationSettings() {
             <span className="label-text">Notification</span>
           </div>
           <details className="dropdown" ref={dropdownRef}>
-            <summary className="group no-animation flex min-h-10 select-none items-center justify-between rounded border-2 px-5 text-sm hover:border-base-300 focus:border-base-300">
-              {soundOption}
+            <summary className="group no-animation flex min-h-9 w-40 select-none items-center justify-between rounded border-2 px-5 text-sm hover:border-base-300 focus:border-base-300">
+              {sound}
               <Image
                 src="/svg/carat.svg"
                 className="-rotate-180"
@@ -32,10 +63,10 @@ export default function NotificationSettings() {
                 width={20}
               />
             </summary>
-            <ul className="menu dropdown-content z-[1] w-full gap-1 rounded border-2 bg-base-100 p-2 shadow">
+            <ul className="menu dropdown-content z-[1] min-h-9 w-40 gap-1 rounded border-2 bg-base-100 p-1 shadow">
               <li>
                 <a
-                  className={`${soundOption === "Jingle" ? "active" : ""}`}
+                  className={`${sound === "Jingle" ? "active" : ""}`}
                   onClick={() => handleSoundSelect("Jingle")}
                 >
                   Jingle
@@ -43,7 +74,7 @@ export default function NotificationSettings() {
               </li>
               <li>
                 <a
-                  className={`${soundOption === "Retro" ? "active" : ""}`}
+                  className={`${sound === "Retro" ? "active" : ""}`}
                   onClick={() => handleSoundSelect("Retro")}
                 >
                   Retro
@@ -51,30 +82,22 @@ export default function NotificationSettings() {
               </li>
               <li>
                 <a
-                  className={`${soundOption === "Digital" ? "active" : ""}`}
+                  className={`${sound === "Digital" ? "active" : ""}`}
                   onClick={() => handleSoundSelect("Digital")}
                 >
                   Digital
                 </a>
               </li>
+              <li>
+                <a
+                  className={`${sound === "Off" ? "active" : ""}`}
+                  onClick={() => handleSoundSelect("Off")}
+                >
+                  Off
+                </a>
+              </li>
             </ul>
           </details>
-        </label>
-        <label className="form-control min-h-32 w-full max-w-sm">
-          <div className="label flex items-center justify-between gap-4">
-            <span className="label-text">Volume</span>
-            <span className="text-sm text-primary">
-              {volume !== 0 ? volume + " %" : "Muted"}
-            </span>
-          </div>
-          <input
-            type="range"
-            min={0}
-            max="100"
-            value={volume}
-            className="range range-primary range-xs"
-            onChange={(e) => setVolume(+e.target.value)}
-          />
         </label>
       </div>
     </div>
