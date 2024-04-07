@@ -3,8 +3,15 @@ export type EnvironmentVariables = {
   ANALYZE: boolean;
 };
 
-export type SliderData = {
-  pomodoro: number;
-  break: number;
+export type SettingsType = {
+  pomodoroTime: number;
+  breakTime: number;
   rounds: number;
+  sound: "Jingle" | "Retro" | "Digital" | "Off";
+};
+
+export type TimerType = {
+  activeTimer: boolean;
+  showAlert: boolean;
+  settings: SettingsType;
 };

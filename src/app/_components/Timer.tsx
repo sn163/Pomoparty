@@ -1,44 +1,33 @@
-import {
-  CSSProperties,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { CSSProperties, useEffect, useMemo, useRef, useState } from "react";
 import SaveSettingsAlert from "./settings/SaveSettingsAlert";
 import Image from "next/image";
+import { useTimerContext } from "./context/TimerContext";
+import { toggleActiveTimer } from "../_utils/actions";
 
-type TimerProps = {
-  inputMin: number;
-  activeTimer: boolean;
-  showAlert: boolean;
-  setActiveTimer: Dispatch<SetStateAction<boolean>>;
-  setShowAlert: Dispatch<SetStateAction<boolean>>;
-};
-
-export default function Timer({ ...props }: TimerProps) {
-  const { inputMin, activeTimer, showAlert, setShowAlert, setActiveTimer } =
-    props;
-  const [minutes, setMinutes] = useState(inputMin);
+export default function Timer() {
+  const { timer, dispatch } = useTimerContext();
+  const { pomodoroTime } = timer.settings;
+  const [minutes, setMinutes] = useState(pomodoroTime);
   const [seconds, setSeconds] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const timerRef = useRef<NodeJS.Timeout>();
   const startButtonText =
-    inputMin === minutes && seconds === 0 ? "Start" : "Resume";
+    pomodoroTime === minutes && seconds === 0 ? "Start" : "Resume";
 
   const timeToSecs = (min: number, sec: number): number => min * 60 + sec;
 
-  const totalStartSec = useMemo(() => timeToSecs(inputMin, 0), [inputMin]);
+  const totalStartSec = useMemo(
+    () => timeToSecs(pomodoroTime, 0),
+    [pomodoroTime],
+  );
 
   useEffect(() => {
-    setMinutes(inputMin);
+    setMinutes(pomodoroTime);
     setSeconds(0);
-  }, [inputMin]);
+  }, [pomodoroTime]);
 
   useEffect(() => {
-    if (activeTimer) {
+    if (timer.activeTimer) {
       timerRef.current = setInterval(() => {
         if (seconds === 0) {
           if (minutes === 0) {
@@ -53,21 +42,21 @@ export default function Timer({ ...props }: TimerProps) {
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [activeTimer, minutes, seconds]);
+  }, [timer.activeTimer, minutes, seconds]);
 
   useEffect(() => {
     setPercentage(100 - (timeToSecs(minutes, seconds) / totalStartSec) * 100);
   }, [totalStartSec, minutes, seconds]);
 
   const handleClick = (actionType: "toggle" | "reset") => {
-    if (!activeTimer && actionType === "toggle") {
-      setActiveTimer(true);
+    if (!timer.activeTimer && actionType === "toggle") {
+      toggleActiveTimer(dispatch, timer);
     } else {
-      setActiveTimer(false);
+      toggleActiveTimer(dispatch, timer);
       if (actionType === "toggle") {
         clearInterval(timerRef.current);
       } else if (actionType === "reset") {
-        setMinutes(inputMin);
+        setMinutes(pomodoroTime);
         setSeconds(0);
       }
     }
@@ -75,7 +64,7 @@ export default function Timer({ ...props }: TimerProps) {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-10">
-      <SaveSettingsAlert showAlert={showAlert} setShowAlert={setShowAlert} />
+      <SaveSettingsAlert />
       <div
         className="radial-progress border-4 border-primary bg-primary text-white"
         style={
@@ -108,7 +97,7 @@ export default function Timer({ ...props }: TimerProps) {
           onClick={() => handleClick("toggle")}
           disabled={minutes === 0 && seconds === 0}
         >
-          {!!activeTimer ? (
+          {timer.activeTimer ? (
             <span className="flex w-full items-center justify-between">
               <Image
                 src="/svg/pause.svg"
@@ -136,7 +125,7 @@ export default function Timer({ ...props }: TimerProps) {
         </button>
         <button
           className="group btn btn-primary min-w-28 disabled:text-[#FFF]"
-          disabled={inputMin === minutes && seconds === 0}
+          disabled={pomodoroTime === minutes && seconds === 0}
           onClick={() => handleClick("reset")}
         >
           <span className="flex w-full items-center justify-between">
