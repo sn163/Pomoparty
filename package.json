@@ -47,5 +47,11 @@
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.3",
     "typesync": "^0.12.1"
+  },
+  "nextBundleAnalysis": {
+    "budget": 512000,
+    "budgetPercentIncreaseRed": 85,
+    "minimumChangeThreshold": 100000,
+    "showDetails": true
   }
 }
