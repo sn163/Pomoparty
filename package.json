@@ -9,9 +9,11 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --write src",
-    "prepare": "husky"
+    "prepare": "husky",
+    "bundle-stats": "ANALYZE=true npm run build"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^14.1.4",
     "@types/howler": "^2.2.11",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",

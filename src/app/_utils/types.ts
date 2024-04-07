@@ -1,5 +1,6 @@
 export type EnvironmentVariables = {
   WEB3_KEY: string;
+  ANALYZE: boolean;
 };
 
 export type SettingsType = {
