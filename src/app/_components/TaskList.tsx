@@ -1,20 +1,42 @@
 import { useState } from "react";
 
+interface checkListItem {
+  id: number;
+  task: string;
+  isChecked: boolean;
+}
+
 export default function TaskList() {
-  const [taskList, setTaskList] = useState<string[]>([]);
+  const [taskList, setTaskList] = useState<checkListItem[]>([]);
   const [task, setNewTask] = useState<string>("");
+  const [incrementID, setIncrementID] = useState<number>(0);
 
   const addedTasks = (text: string) => {
-    const newTaskList = [...taskList, text];
-    setTaskList(newTaskList);
+    const newTaskList: checkListItem = {
+      id: incrementID,
+      task: text,
+      isChecked: false,
+    };
+
+    setTaskList([...taskList, newTaskList]);
     setNewTask("");
+    setIncrementID(incrementID + 1);
   };
 
-  const deleteTasks = (id: string) => {
-    const removeTask = taskList.filter((task) => {
-      return task !== id;
-    });
-    setTaskList(removeTask);
+  const deleteTasks = (text: string, index: number) => {
+    const updatedTaskList = taskList.filter(
+      (task, i) => !(task.task === text && task.id === index && task.isChecked),
+    );
+
+    setTaskList(updatedTaskList);
+  };
+
+  const handleOnChange = (index: number) => {
+    const updateTaskList = taskList.map((task) =>
+      task.id === index ? { ...task, isChecked: !task.isChecked } : task,
+    );
+
+    setTaskList(updateTaskList);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +44,8 @@ export default function TaskList() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center pt-10">
-      <div className="btn btn-accent border-2 text-lg text-primary shadow-md">
+    <div className="pt-10">
+      <div className="h-30 flex w-60 items-center justify-center rounded-full border-2 border-primary bg-secondary text-lg text-white shadow-md shadow-red-500">
         <h1>To-Do List: </h1>
       </div>
       <div>
@@ -32,19 +54,10 @@ export default function TaskList() {
           value={task}
           onChange={handleInputChange}
           placeholder="Enter Task"
-          // className='border-current round-md #FF8989 h-10 w-60 m-6 whitespace-normal pt-2'
-          style={{
-            border: "3px solid #FF8989",
-            borderRadius: 5,
-            height: "45px",
-            width: "300px",
-            margin: "1rem",
-            whiteSpace: "normal",
-            padding: "1rem",
-          }}
+          className="round-none m-1 mt-6 border-2 border-current border-primary pt-2 indent-2"
         />
         <button
-          className="btn btn-accent mt-1 border-2 text-primary shadow-md"
+          className="btn btn-accent btn-sm border-2 text-primary shadow-md"
           type="button"
           onClick={() => {
             addedTasks(task);
@@ -55,14 +68,24 @@ export default function TaskList() {
       </div>
       <div>
         <ul>
-          {taskList.map((task, index) => (
-            <li key={index} className="text-wrap">
-              {task}
+          {taskList.map((task) => (
+            <li
+              key={task.id}
+              className="my-2 mt-2 flex w-fit items-center justify-end text-balance border-2 text-center text-primary shadow-md"
+            >
+              {task.task}
+              <input
+                // className="btn btn-accent m-3 border-2 text-primary shadow-md"
+                className="checkbox checkbox-md m-1 "
+                type="checkbox"
+                checked={task.isChecked}
+                onChange={() => handleOnChange(task.id)}
+              />
               <button
-                className="btn btn-accent m-3 border-2 text-primary shadow-md"
                 type="button"
+                className="item-center m-1 flex justify-center rounded-full border-2 border-primary bg-secondary text-white"
                 onClick={() => {
-                  deleteTasks(task);
+                  deleteTasks(task.task, task.id);
                 }}
               >
                 Delete
