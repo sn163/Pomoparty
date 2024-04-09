@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-.github
-/workflow
-.husky
 
 # testing
 /coverage
