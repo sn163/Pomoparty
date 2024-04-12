@@ -12,6 +12,7 @@ import React, {
 } from "react";
 
 type Category = "bug" | "account" | "feedback" | "other";
+type ContactFormEntries = "name" | "email" | "category" | "message";
 
 export default function ContactForm() {
   /**
@@ -31,10 +32,6 @@ export default function ContactForm() {
    *
    */
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [category, setCategory] = useState("none-selected");
-  const [message, setMessage] = useState("");
   const [formValidity, setFormValidity] = useState({
     name: false,
     email: false,
@@ -61,10 +58,12 @@ export default function ContactForm() {
     [],
   );
 
-  const validateForm = (inputName: string, value: string) => {
+  const validateForm = ({ target }: ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = target;
+
     type ValidityChecker = (input: string) => boolean;
     interface ValidyCheckers {
-      [key: string]: ValidityChecker;
+      [ContactFormEntries: string]: ValidityChecker;
     }
 
     const formValidationRules: ValidyCheckers = {
@@ -78,40 +77,17 @@ export default function ContactForm() {
       message: (input) => input.length > 12 && input.length < 200,
     };
 
-    const isValid = formValidationRules[inputName](value);
+    const isValid = formValidationRules[name](value);
+
     console.log(isValid);
+
     setFormValidity({
       ...formValidity,
-      [inputName]: isValid,
+      [name]: isValid,
     });
   };
 
-  const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setCategory(event.target.value);
-    validateForm(event.target.name, event.target.value);
-  };
-
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value);
-    validateForm(event.target.name, event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value);
-    validateForm(event.target.name, event.target.value);
-  };
-
-  const handleMessageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value);
-    validateForm(event.target.name, event.target.value);
-  };
-
   const formRef = useRef<HTMLFormElement>(null);
-
-  //TODO debug delete
-  useEffect(() => {
-    console.log(category);
-  });
 
   return (
     <>
@@ -131,7 +107,7 @@ export default function ContactForm() {
             value={category}
             name="category"
             className="select select-bordered"
-            onChange={handleCategoryChange}
+            onChange={validateForm}
             required
           >
             <option
@@ -153,7 +129,7 @@ export default function ContactForm() {
             name="name"
             placeholder="John Doe"
             className="input input-bordered"
-            onChange={handleNameChange}
+            onChange={validateForm}
             required
           />
         </div>
@@ -166,7 +142,7 @@ export default function ContactForm() {
             name="email"
             placeholder="my@email.com"
             className="input input-bordered"
-            onChange={handleEmailChange}
+            onChange={validateForm}
             required
           />
         </div>
@@ -179,7 +155,7 @@ export default function ContactForm() {
             name="message"
             placeholder="Please enter your message here."
             className="textarea textarea-bordered resize-none"
-            onChange={handleMessageChange}
+            onChange={validateForm}
             required
           />
         </div>
