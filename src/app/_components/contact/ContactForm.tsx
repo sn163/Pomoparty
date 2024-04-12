@@ -3,16 +3,14 @@
 import { submitWeb3Form } from "@/app/_actions/handleWeb3";
 import React, {
   ChangeEvent,
-  ReactHTMLElement,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
 
 type Category = "bug" | "account" | "feedback" | "other";
-type ContactFormEntries = "name" | "email" | "category" | "message";
+type ContactFormField = "name" | "email" | "category" | "message";
 
 export default function ContactForm() {
   /**
@@ -32,12 +30,18 @@ export default function ContactForm() {
    *
    */
 
-  const [formValidity, setFormValidity] = useState({
+  interface FormValidity {
+    [ContactFormField: string]: boolean;
+  }
+
+  const [formValidity, setFormValidity] = useState<FormValidity>({
     name: false,
     email: false,
     category: false,
     message: false,
   });
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const categoryOptions = useMemo(
     () =>
@@ -58,36 +62,43 @@ export default function ContactForm() {
     [],
   );
 
-  const validateForm = ({ target }: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = target;
+  const validateForm = useCallback(
+    ({
+      target,
+    }: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >): void => {
+      const { name, value } = target;
 
-    type ValidityChecker = (input: string) => boolean;
-    interface ValidyCheckers {
-      [ContactFormEntries: string]: ValidityChecker;
-    }
+      type ValidityChecker = (input: string) => boolean;
+      interface ValidyCheckers {
+        [ContactFormEntryType: string]: ValidityChecker;
+      }
 
-    const formValidationRules: ValidyCheckers = {
-      name: (input) => input.length >= 2,
-      email: (input) => {
-        const regex =
-          /(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-        return regex.test(input);
-      },
-      category: (input) => input !== "none-selected",
-      message: (input) => input.length > 12 && input.length < 200,
-    };
+      const formValidationRules: ValidyCheckers = {
+        name: (input) => input.length >= 2,
+        email: (input) => {
+          //TODO: regex allows whitespace in email right now
+          const regex =
+            /(?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+          return regex.test(input);
+        },
+        category: (input) => input !== "none-selected",
+        message: (input) => input.length > 12 && input.length < 1000,
+      };
 
-    const isValid = formValidationRules[name](value);
+      const isValid = formValidationRules[name](value);
 
-    console.log(isValid);
-
-    setFormValidity({
-      ...formValidity,
-      [name]: isValid,
-    });
-  };
-
-  const formRef = useRef<HTMLFormElement>(null);
+      if (isValid !== formValidity[name]) {
+        console.log(name, isValid);
+        setFormValidity({
+          ...formValidity,
+          [name]: isValid,
+        });
+      }
+    },
+    [formValidity],
+  );
 
   return (
     <>
@@ -104,7 +115,6 @@ export default function ContactForm() {
             <span className="label-text">I&apos;d like to chat about...</span>
           </label>
           <select
-            value={category}
             name="category"
             className="select select-bordered"
             onChange={validateForm}
@@ -114,6 +124,7 @@ export default function ContactForm() {
               value="none-selected"
               key="contactCategory0-disabled"
               disabled
+              selected
             >
               - Please Select -
             </option>
