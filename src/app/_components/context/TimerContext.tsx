@@ -1,4 +1,4 @@
-import { SettingsType, TimerType } from "@/app/_utils/types";
+import { TimerType } from "@/app/_utils/types";
 import {
   createContext,
   PropsWithChildren,
@@ -8,8 +8,9 @@ import {
 } from "react";
 import { useContextWrapper } from "./useContextWrapper";
 
-export const initialTimer: TimerType = {
+const initialTimer: TimerType = {
   activeTimer: false,
+  activeStep: 0,
   showAlert: false,
   settings: {
     pomodoroTime: 25,
@@ -22,6 +23,8 @@ export const initialTimer: TimerType = {
 export enum ActionType {
   toggleActiveTimer = "toggleActiveTimer",
   updateSaveAlert = "updateSaveAlert",
+  updateActiveStep = "updateActiveStep",
+  resetActiveStep = "resetActiveStep",
   updateSettings = "updateSettings",
   updateSoundSettings = "updateSoundSettings",
   revertSettings = "revertSettings",
@@ -29,11 +32,7 @@ export enum ActionType {
 
 export type IAction = {
   type: ActionType;
-  timer: {
-    activeTimer: boolean;
-    showAlert: boolean;
-    settings: SettingsType;
-  };
+  timer: TimerType;
 };
 
 const timerReducer = (
@@ -64,6 +63,18 @@ const timerReducer = (
         settings: {
           ...action.timer.settings,
         },
+      };
+    }
+    case "updateActiveStep": {
+      return {
+        ...timer,
+        activeStep: action.timer.activeStep + 1,
+      };
+    }
+    case "resetActiveStep": {
+      return {
+        ...timer,
+        activeStep: 0,
       };
     }
     case "updateSaveAlert": {

@@ -4,35 +4,33 @@ import Link from "next/link";
 
 export default function NavBar() {
   return (
-    <div className="navbar fixed bg-primary px-16 py-2 drop-shadow-lg">
-      <a className="flex-1" href="/">
+    <div className="navbar fixed z-10 bg-primary px-16 py-2 drop-shadow-lg">
+      <Link
+        className="mr-auto flex font-title text-4xl tracking-wider text-base-100"
+        href="/"
+      >
+        P
         <Image
-          src="/pomoparty-logo-white.webp"
-          className="h-auto w-auto"
-          height={50}
-          width={200}
+          src="/svg/pizza.svg"
+          height={33}
+          width={33}
           alt="pomoparty-logo"
           priority={true}
         />
-      </a>
-      <div className="flex space-x-6">
-        <Link href="/duo-timer">
-          <button className="prose text-white">Duo Session</button>
-        </Link>
+        MOPARTY
+      </Link>
+      <div className="font-display ml-auto flex items-center space-x-6">
         <Link href="/contact">
-          <button className="prose text-white">Contact</button>
+          <button className="text-white">Contact</button>
         </Link>
-        <a>
-          <button className="prose text-white">Features</button>
-        </a>
-        <a>
-          <button className="prose text-white">Sign In</button>
-        </a>
-        <a>
-          <button className="btn btn-accent w-24 border-2 text-primary shadow-md">
+        <Link href="#">
+          <button className="text-white">Sign In</button>
+        </Link>
+        <Link href="#">
+          <button className="btn btn-accent border-2 text-primary shadow-md">
             Sign Up
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );

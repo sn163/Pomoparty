@@ -12,6 +12,7 @@ export type SettingsType = {
 
 export type TimerType = {
   activeTimer: boolean;
+  activeStep: number;
   showAlert: boolean;
   settings: SettingsType;
 };

@@ -21,12 +21,12 @@ export default function TimerSettings({
     };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-1 px-5">
+    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-4 px-2">
       <h4 className="text-md mr-auto font-bold text-base-300">TIMER LENGTH</h4>
       <label className="form-control w-full max-w-sm py-1.5">
         <div className="label justify-between">
           <span className="label-text">Pomodoro</span>
-          <span className="text-lg text-primary">{pomodoroTime + " min"}</span>
+          <span className="text-primary">{pomodoroTime + " min"}</span>
         </div>
         <input
           type="range"
@@ -46,7 +46,7 @@ export default function TimerSettings({
         <label className="form-control w-full py-1">
           <div className="label justify-between">
             <span className="label-text">Short Break</span>
-            <span className="text-lg text-primary">{breakTime + " min"}</span>
+            <span className="text-primary">{breakTime + " min"}</span>
           </div>
           <input
             type="range"
@@ -65,7 +65,7 @@ export default function TimerSettings({
         <label className="form-control w-full py-1">
           <div className="label justify-between">
             <span className="label-text">Rounds</span>
-            <span className="text-lg text-primary">{rounds}</span>
+            <span className="text-primary">{rounds}</span>
           </div>
           <input
             type="range"
