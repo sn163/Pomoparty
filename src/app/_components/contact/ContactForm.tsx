@@ -14,12 +14,14 @@ type ContactFormField = "name" | "email" | "category" | "message";
 
 export default function ContactForm() {
   /**
+   *
    * form data: {
-   *    name: min 2 chars?
+   *    name: min 2 chars? no
    *    email: regex for *@**.**
    *    category: selected must not be first option
    *    message: > 20 len
    * }
+   *    - safe against sql injection
    *
    * - Submit Button grayed out and unclickable until all reqs met.  if clicked, will run check on all fields
    * - form instant feedback
