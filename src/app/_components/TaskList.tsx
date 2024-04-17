@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import uuid from "react-uuid";
 
 interface checkListItem {
-  id: number;
+  id: string;
   task: string;
   isChecked: boolean;
 }
@@ -9,34 +10,31 @@ interface checkListItem {
 export default function TaskList() {
   const [taskList, setTaskList] = useState<checkListItem[]>([]);
   const [task, setNewTask] = useState<string>("");
-  const [incrementID, setIncrementID] = useState<number>(0);
 
   const addedTasks = (text: string) => {
     const newTaskList: checkListItem = {
-      id: incrementID,
+      id: uuid(),
       task: text,
       isChecked: false,
     };
 
     setTaskList([...taskList, newTaskList]);
     setNewTask("");
-    setIncrementID(incrementID + 1);
   };
 
-  const deleteTasks = (text: string, index: number) => {
-    const updatedTaskList = taskList.filter(
-      (task, i) => !(task.task === text && task.id === index && task.isChecked),
-    );
-
-    setTaskList(updatedTaskList);
-  };
-
-  const handleOnChange = (index: number) => {
-    const updateTaskList = taskList.map((task) =>
-      task.id === index ? { ...task, isChecked: !task.isChecked } : task,
-    );
+  const deleteTasks = (text: string, id: string) => {
+    const updateTaskList = taskList.filter((task, i) => {
+      return !(task.id === id && task.task === text && task.isChecked);
+    });
 
     setTaskList(updateTaskList);
+  };
+
+  const handleOnChange = (id: string) => {
+    const taskIdUpdate = taskList.map((task) => {
+      return task.id === id ? { ...task, isChecked: !task.isChecked } : task;
+    });
+    setTaskList(taskIdUpdate);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +73,6 @@ export default function TaskList() {
             >
               {task.task}
               <input
-                // className="btn btn-accent m-3 border-2 text-primary shadow-md"
                 className="checkbox checkbox-md m-1 "
                 type="checkbox"
                 checked={task.isChecked}
