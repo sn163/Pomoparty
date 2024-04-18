@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTimerContext } from "../../context/TimerContext";
-import { updateSaveAlert } from "@/app/_utils/actions";
+import { updateSaveAlert } from "@/_utils/actions";
 import Image from "next/image";
 
 export default function SaveSettingsAlert() {

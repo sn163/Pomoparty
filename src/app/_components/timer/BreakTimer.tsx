@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TimerDisplay } from "./TimerDisplay";
 import { useTimerContext } from "../context/TimerContext";
-import { timeToSecs } from "@/app/_utils/helpers";
+import { timeToSecs } from "@/_utils/helpers";
 import { TimerButtonGroup } from "./TimerButtonGroup";
 
 export default function BreakTimer() {

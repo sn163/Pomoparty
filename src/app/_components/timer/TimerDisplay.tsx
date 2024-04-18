@@ -13,6 +13,7 @@ export function TimerDisplay({
 }: TimerDisplayProps) {
   return (
     <div
+      title="Timer Progress"
       className="radial-progress border-4 border-primary bg-primary text-accent"
       style={
         {

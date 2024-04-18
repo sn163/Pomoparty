@@ -9,7 +9,7 @@ import {
   updateSaveAlert,
   toggleActiveTimer,
   resetActiveStep,
-} from "@/app/_utils/actions";
+} from "@/_utils/actions";
 
 export default function SettingsDrawer() {
   const { timer, dispatch } = useTimerContext();
@@ -35,13 +35,13 @@ export default function SettingsDrawer() {
         aria-label="close sidebar"
         className="drawer-overlay"
       />
-      <div className="flex h-full min-h-full w-full max-w-sm flex-col items-center justify-start bg-base-100 px-4 pt-24 text-base-content">
-        <h3 className="flex h-6 text-lg font-bold text-gray-400">
+      <div className="flex h-full min-h-full w-full max-w-sm flex-col items-center justify-start bg-base-100 pt-2 text-base-content">
+        <h3 className="mb-6 mt-3 flex h-6 select-none text-center text-xl font-bold text-primary">
           POMOPARTY SETTINGS
         </h3>
-        <div className="mb-5 flex h-full w-full flex-col justify-between">
+        <hr className="border-1 h-px w-full bg-gray-200" />
+        <div className="mb-4 flex h-full w-full flex-col justify-between">
           <div className="mt-8 flex h-full w-full flex-col items-center space-y-8">
-            <hr className="border-1 h-px w-full bg-gray-200" />
             <TimerSettings
               tempSettings={tempSettings}
               setTempSettings={setTempSettings}
@@ -49,7 +49,7 @@ export default function SettingsDrawer() {
             <hr className="border-1 h-px w-full bg-gray-200" />
             <NotificationSettings />
           </div>
-          <div className="flex w-full flex-col items-center justify-center gap-4">
+          <div className="flex w-full flex-col items-center justify-center gap-4 px-4">
             <label
               htmlFor="settings-drawer"
               className="btn btn-primary drawer-button btn-block"

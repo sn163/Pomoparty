@@ -1,4 +1,4 @@
-import { TimerType } from "@/app/_utils/types";
+import { TimerType } from "@/_utils/types";
 import {
   createContext,
   PropsWithChildren,

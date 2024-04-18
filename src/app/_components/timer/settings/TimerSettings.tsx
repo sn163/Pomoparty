@@ -1,9 +1,42 @@
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { SettingsType } from "@/app/_utils/types";
+import { SettingsType } from "@/_utils/types";
 
 type TimerSettingsProps = {
   tempSettings: SettingsType;
   setTempSettings: Dispatch<SetStateAction<SettingsType>>;
+};
+
+type SliderBarProps = {
+  id: string;
+  value: number;
+  min: number;
+  max: number;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  label: string;
+};
+
+const SliderBar = ({ ...props }: SliderBarProps) => {
+  const { id, label, min, max, value, onChange } = props;
+  return (
+    <>
+      <label
+        className=" flex select-none items-center justify-between"
+        htmlFor={id}
+      >
+        <span>{label}</span>
+        <span className="text-lg text-primary">{value + " min"}</span>
+      </label>
+      <input
+        id={id}
+        type="range"
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChange}
+        className="range range-primary range-sm w-full"
+      />
+    </>
+  );
 };
 
 export default function TimerSettings({
@@ -21,66 +54,56 @@ export default function TimerSettings({
     };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-4 px-2">
-      <h4 className="text-md mr-auto font-bold text-base-300">TIMER LENGTH</h4>
-      <label className="form-control w-full max-w-sm py-1.5">
-        <div className="label justify-between">
-          <span className="label-text">Pomodoro</span>
-          <span className="text-primary">{pomodoroTime + " min"}</span>
-        </div>
-        <input
-          type="range"
+    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-4 px-6">
+      <h4 className="text-md mr-auto select-none font-bold text-base-300">
+        TIMER LENGTH
+      </h4>
+      <div className="w-full max-w-sm space-y-3 py-1.5">
+        <SliderBar
+          id="pomodoro"
           min={1}
-          max="60"
+          max={60}
           value={pomodoroTime}
-          className="range range-primary range-sm"
           onChange={handleSliderInputs("pomodoroTime")}
+          label="Pomodoro"
         />
         <div className="mt-2 flex w-full justify-between px-0.5 text-xs text-base-content">
           <span>1</span>
           <span>30</span>
           <span>60</span>
         </div>
-      </label>
+      </div>
       <div className="flex w-full max-w-sm items-center gap-7">
-        <label className="form-control w-full py-1">
-          <div className="label justify-between">
-            <span className="label-text">Short Break</span>
-            <span className="text-primary">{breakTime + " min"}</span>
-          </div>
-          <input
-            type="range"
+        <div className="w-full space-y-3 py-1.5">
+          <SliderBar
+            id="breaktime"
             min={1}
-            max="30"
+            max={30}
             value={breakTime}
-            className="range range-primary range-sm"
             onChange={handleSliderInputs("breakTime")}
+            label="Short Break"
           />
-          <div className="mt-2 flex w-full justify-between px-0.5 text-xs text-base-content">
+          <div className="mt-1 flex w-full select-none justify-between px-0.5 text-sm text-black">
             <span>1</span>
             <span>15</span>
             <span>30</span>
           </div>
-        </label>
-        <label className="form-control w-full py-1">
-          <div className="label justify-between">
-            <span className="label-text">Rounds</span>
-            <span className="text-primary">{rounds}</span>
-          </div>
-          <input
-            type="range"
+        </div>
+        <div className="w-full space-y-3 py-1.5">
+          <SliderBar
+            id="rounds"
             min={1}
-            max="15"
+            max={15}
             value={rounds}
-            className="range range-primary range-sm"
             onChange={handleSliderInputs("rounds")}
+            label="Rounds"
           />
-          <div className="mt-2 flex w-full justify-between px-0.5 text-xs text-base-content">
+          <div className="mt-1 flex  w-full select-none justify-between px-0.5 text-sm text-black">
             <span>1</span>
             <span>8</span>
             <span>15</span>
           </div>
-        </label>
+        </div>
       </div>
     </div>
   );

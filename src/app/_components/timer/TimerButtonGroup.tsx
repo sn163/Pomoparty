@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useTimerContext } from "../context/TimerContext";
 import { toggleActiveTimer } from "../../_utils/actions";
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { ThemedButton } from "../ui/ThemedButton";
 
 type TimerButtonGroupProps = {
   timerMinutes: number;
@@ -45,8 +46,10 @@ export const TimerButtonGroup = ({
 
   return (
     <div className="flex space-x-5">
-      <button
-        className="group btn btn-primary min-w-28"
+      <ThemedButton
+        className="group min-w-28"
+        variant="solid"
+        size="md"
         onClick={() => handleToggle()}
         disabled={minutes === 0 && seconds === 0}
       >
@@ -75,9 +78,11 @@ export const TimerButtonGroup = ({
             {startButtonText}
           </span>
         )}
-      </button>
-      <button
-        className="group btn btn-primary min-w-28 disabled:text-base-100"
+      </ThemedButton>
+      <ThemedButton
+        className="group min-w-28 disabled:text-base-100"
+        variant="solid"
+        size="md"
         disabled={timerMinutes === minutes && seconds === 0}
         onClick={() => handleReset()}
       >
@@ -91,7 +96,7 @@ export const TimerButtonGroup = ({
           />
           Reset
         </span>
-      </button>
+      </ThemedButton>
     </div>
   );
 };

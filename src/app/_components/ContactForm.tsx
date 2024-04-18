@@ -1,7 +1,8 @@
 "use client";
 
-import { submitWeb3Form } from "@/app/_actions/handleWeb3";
+import { submitWeb3Form } from "@/_actions/handleWeb3";
 import { useMemo, useRef } from "react";
+import { ThemedButton } from "./ui/ThemedButton";
 
 export default function ContactForm() {
   const categories = useMemo(
@@ -32,10 +33,15 @@ export default function ContactForm() {
         }}
       >
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="category" className="label">
             <span className="label-text">I&apos;d like to chat about...</span>
           </label>
-          <select name="category" className="select select-bordered" required>
+          <select
+            id="category"
+            name="category"
+            className="select select-bordered"
+            required
+          >
             <option disabled selected>
               - Please Select -
             </option>
@@ -43,10 +49,11 @@ export default function ContactForm() {
           </select>
         </div>
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="text" className="label">
             <span className="label-text">Name</span>
           </label>
           <input
+            id="text"
             type="text"
             name="name"
             placeholder="John Doe"
@@ -55,10 +62,11 @@ export default function ContactForm() {
           />
         </div>
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="email" className="label">
             <span className="label-text">Email</span>
           </label>
           <input
+            id="email"
             type="email"
             name="email"
             placeholder="my@email.com"
@@ -67,11 +75,11 @@ export default function ContactForm() {
           />
         </div>
         <div className="form-control">
-          <label className="label">
+          <label htmlFor="email" className="label">
             <span className="label-text">Your Message</span>
           </label>
-
           <textarea
+            id="message"
             name="message"
             placeholder="Please enter your message here."
             className="textarea textarea-bordered resize-none"
@@ -80,9 +88,14 @@ export default function ContactForm() {
         </div>
 
         <div className="form-control mt-6">
-          <button type="submit" className="btn btn-primary">
+          <ThemedButton
+            variant="solid"
+            size="md"
+            type="submit"
+            className="btn btn-primary"
+          >
             Submit Form
-          </button>
+          </ThemedButton>
         </div>
       </form>
     </>

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TimerDisplay } from "./TimerDisplay";
 import { useTimerContext } from "../context/TimerContext";
-import { timeToSecs } from "@/app/_utils/helpers";
+import { timeToSecs } from "@/_utils/helpers";
 import { TimerButtonGroup } from "./TimerButtonGroup";
-import { updateActiveStep } from "@/app/_utils/actions";
+import { updateActiveStep } from "@/_utils/actions";
 
 export default function PomodoroTimer() {
   const { timer, dispatch } = useTimerContext();

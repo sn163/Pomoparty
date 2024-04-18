@@ -21,14 +21,11 @@ export const Stepper = () => {
         Rounds
       </h2>
       <ul className="steps">
-        <li key={`${listId}`} data-content="★" className="step step-primary">
-          Task Start
-        </li>
         {totalRounds.map((round, i) => {
           return (
             <li
               key={`${listId}-${i}`}
-              data-content={round + 1}
+              data-content={activeStep > round ? "✓" : round + 1}
               className={`step ${activeStep > round ? "step-primary" : ""}`}
             >
               {activeStep === round && (
@@ -43,12 +40,6 @@ export const Stepper = () => {
             </li>
           );
         })}
-        <li
-          data-content="✓"
-          className={`step ${activeStep === totalRounds.length ? "step-primary" : ""}`}
-        >
-          Task Done!
-        </li>
       </ul>
     </div>
   );

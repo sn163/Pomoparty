@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useRef } from "react";
-import useSound from "use-sound";
+import useSound from "node_modules/use-sound/dist";
 import { useTimerContext } from "../../context/TimerContext";
-import { updateSoundSettings } from "@/app/_utils/actions";
+import { updateSoundSettings } from "@/_utils/actions";
 
 export default function NotificationSettings() {
   const { timer, dispatch } = useTimerContext();
