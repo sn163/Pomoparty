@@ -7,13 +7,16 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/_server/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/_components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/solo-timer/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/duo-timer/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         neutral: colors.neutral,
+      },
+      fontFamily: {
+        title: "Rowdies",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -39,7 +42,7 @@ const config: Config = {
           "primary-content": "#FFF",
           secondary: "#FF8989",
           "secondary-content": "#FFF",
-          accent: "#FFEADD",
+          accent: "#FFA3A3",
           "accent-content": "#FFF",
           neutral: "#FF8989",
           "base-100": "#FFF",

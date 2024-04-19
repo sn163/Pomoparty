@@ -1,39 +1,57 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemedButton } from "./ui/ThemedButton";
 
 export default function NavBar() {
   return (
-    <div className="navbar fixed bg-primary px-16 py-2 drop-shadow-lg">
-      <a className="flex-1" href="/">
-        <Image
-          src="/pomoparty-logo-white.webp"
-          className="h-auto w-auto"
-          height={50}
-          width={200}
-          alt="pomoparty-logo"
-          priority={true}
-        />
-      </a>
-      <div className="flex space-x-6">
-        <Link href="/duo-timer">
-          <button className="prose text-white">Duo Session</button>
+    <header className="shadowsm:flex-nowrap fixed flex w-full flex-wrap bg-base-100 py-3 text-sm sm:justify-start">
+      <nav
+        className="mx-auto w-full max-w-[85rem] px-7 sm:flex sm:items-center sm:justify-between"
+        aria-label="navigation bar"
+      >
+        <Link
+          className="flex font-title text-4xl tracking-wider text-primary drop-shadow-lg"
+          href="/"
+        >
+          P
+          <Image
+            src="/svg/pizza.svg"
+            height={33}
+            width={33}
+            alt="pomoparty-logo"
+            priority={true}
+          />
+          MOPARTY
         </Link>
-        <Link href="/contact">
-          <button className="prose text-white">Contact</button>
-        </Link>
-        <a>
-          <button className="prose text-white">Features</button>
-        </a>
-        <a>
-          <button className="prose text-white">Sign In</button>
-        </a>
-        <a>
-          <button className="btn btn-accent w-24 border-2 text-primary shadow-md">
-            Sign Up
-          </button>
-        </a>
-      </div>
-    </div>
+        <div className="mt-5 flex flex-row items-center gap-5 sm:mt-0 sm:justify-end sm:ps-5">
+          <Link href="/contact">
+            <ThemedButton
+              className="no-underline hover:no-underline"
+              alt="contact"
+              variant="link"
+              size="md"
+            >
+              Contact
+            </ThemedButton>
+          </Link>
+          <Link href="#">
+            <ThemedButton
+              className="no-underline hover:no-underline"
+              alt="sign in"
+              variant="link"
+              size="md"
+            >
+              Sign In
+            </ThemedButton>
+          </Link>
+          <Link href="#">
+            <ThemedButton alt="sign up" variant="solid" size="md">
+              Sign Up
+            </ThemedButton>
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 }

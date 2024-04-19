@@ -11,8 +11,6 @@ export async function submitWeb3Form(formData: FormData) {
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    console.log("checking body: ", object);
-
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {

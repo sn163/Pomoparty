@@ -26,3 +26,13 @@ export const updateSoundSettings = (
 
 export const revertSettings = (dispatch: Dispatch<IAction>, timer: TimerType) =>
   dispatch({ type: ActionType.revertSettings, timer: timer });
+
+export const updateActiveStep = (
+  dispatch: Dispatch<IAction>,
+  timer: TimerType,
+) => dispatch({ type: ActionType.updateActiveStep, timer: timer });
+
+export const resetActiveStep = (
+  dispatch: Dispatch<IAction>,
+  timer: TimerType,
+) => dispatch({ type: ActionType.resetActiveStep, timer: timer });

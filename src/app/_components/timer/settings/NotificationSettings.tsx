@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 import useSound from "node_modules/use-sound/dist";
-import { useTimerContext } from "../context/TimerContext";
-import { updateSoundSettings } from "@/app/_utils/actions";
+import { useTimerContext } from "../../context/TimerContext";
+import { updateSoundSettings } from "@/_utils/actions";
 
 export default function NotificationSettings() {
   const { timer, dispatch } = useTimerContext();
@@ -45,14 +45,17 @@ export default function NotificationSettings() {
   };
 
   return (
-    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-1 px-5">
+    <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-4 px-5">
       <h4 className="text-md mr-auto font-bold text-base-300">SOUND</h4>
       <div className="space-between flex w-full items-center gap-7">
-        <label className="form-control min-h-32 w-full">
+        <label className="form-control min-h-20">
           <div className="label flex items-center justify-start">
             <span className="label-text">Notification</span>
           </div>
-          <details className="dropdown" ref={dropdownRef}>
+          <details
+            className="dropdown dropdown-end dropdown-right"
+            ref={dropdownRef}
+          >
             <summary className="group no-animation flex min-h-9 w-40 select-none items-center justify-between rounded border-2 px-5 text-sm hover:border-base-300 focus:border-base-300">
               {sound}
               <Image
