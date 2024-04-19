@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Rowdies } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NavBar from "./_components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const rowdies = Rowdies({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-rowdies",
+});
 
 export const metadata: Metadata = {
   title: "Pomoparty",
@@ -18,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${rowdies.variable}`}>
         <NavBar />
         {children}
         <SpeedInsights />
