@@ -45,8 +45,7 @@ export default function PomodoroTimer() {
       }, 1000);
     }
     return () => {
-      if (timerRef.current)
-        if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [timer, minutes, pomodoroTime, rounds, seconds, dispatch]);
 
