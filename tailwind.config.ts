@@ -16,7 +16,7 @@ const config: Config = {
         neutral: colors.neutral,
       },
       fontFamily: {
-        title: "Rowdies",
+        title: ["var(--font-rowdies)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
