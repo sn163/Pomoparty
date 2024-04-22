@@ -3,6 +3,7 @@ import { Inter, Rowdies } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NavBar from "./_components/Navbar";
+import TaskList from "./_components/TaskList";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const rowdies = Rowdies({
@@ -27,6 +28,7 @@ export default function RootLayout({
         <NavBar />
         {children}
         <SpeedInsights />
+        <TaskList />
       </body>
     </html>
   );
