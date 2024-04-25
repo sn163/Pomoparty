@@ -4,7 +4,6 @@ import Image from "next/image";
 import { TimerContextProvider } from "./_components/context/TimerContext";
 import Timer from "./_components/timer/Timer";
 import { ThemedButton } from "./_components/ui/ThemedButton";
-import TaskList from "./_components/TaskList";
 
 export default function Home() {
   return (
@@ -24,7 +23,6 @@ export default function Home() {
           Duo Session
         </ThemedButton>
       </Link>
-      <TaskList />
     </main>
   );
 }
