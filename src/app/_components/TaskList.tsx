@@ -43,7 +43,7 @@ export default function TaskList() {
   };
 
   return (
-    <div>
+    <div className="flex justify-center overflow-auto">
       <div className="m-5 flex justify-items-center">
         <input
           type="text"
@@ -55,7 +55,7 @@ export default function TaskList() {
         <textarea
           value={description}
           placeholder="Enter Task Description"
-          className="textarea textarea-bordered"
+          className="textarea input-bordered ml-2 h-32"
           onChange={(e) => setDescription(e.target.value)}
         />
         <button
@@ -70,12 +70,12 @@ export default function TaskList() {
       </div>
 
       <div>
-        <ul className="menu flex min-h-full w-80 justify-items-center p-4 text-base-content">
+        <ul className="menu min-h-full w-80 justify-items-center p-4 text-base-content">
           {taskList.map((task) => (
-            <details key={task.id} className="collapse bg-base-200">
+            <details key={task.id} className="collapse m-1 bg-base-200">
               <summary className="collapse-title text-xl font-medium">
                 <input
-                  className="checkbox checkbox-sm m-1 text-wrap"
+                  className="checkbox input input-bordered checkbox-sm m-1 text-wrap"
                   type="checkbox"
                   checked={task.isComplete}
                   onChange={() => handleOnChange(task.id)}
@@ -83,7 +83,7 @@ export default function TaskList() {
                 {task.title}
                 <button
                   type="button"
-                  className="min-w-30 group btn btn-primary btn-sm min-h-5 border-2 text-white shadow-md"
+                  className="min-w-30 group btn btn-primary btn-sm m-3 min-h-5 border-2 text-white shadow-md"
                   onClick={() => {
                     deleteTask(task.id);
                   }}
@@ -93,7 +93,7 @@ export default function TaskList() {
               </summary>
 
               <div className="collapse-content">
-                <p>context</p>
+                <p>{task.description}</p>
               </div>
             </details>
 
