@@ -1,51 +1,77 @@
 import { useState } from "react";
-import SignIn from "./Navbar";
+import uuid from "react-uuid";
+
+interface LoginInfo {
+  id: string;
+  username: string;
+  password: string;
+  isLogin: boolean;
+}
 
 export default function LoginModal() {
-  const [modal, setModal] = useState(false);
-  const [signIn, setSignIn] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [login, setLogin] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<LoginInfo[]>([]);
 
-  const handleOnChange = () => {
-    setSignIn(!signIn);
+  const loginModal = (username: string, password: string) => {
+    const loginInfo: LoginInfo = {
+      id: uuid(),
+      username,
+      password,
+      isLogin: false,
+    };
+    setUserInfo([...userInfo, loginInfo]);
   };
 
   const openModal = () => {
-    setModal(true);
+    setOpen(true);
   };
 
   const closeModal = () => {
-    setModal(false);
+    setOpen(false);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const foundUser = userInfo.find(
+      (user) => user.username === username && user.password === password,
+    );
+    if (foundUser) {
+      setLogin(true);
+      closeModal();
+    }
   };
 
   return (
     <div>
-      {/* <div>
-        <h1>Username</h1>
-        <input type="text" placeholder="Enter Username" />
-      </div>
-      <div>
-        <h1>Password</h1>
-        <input type="text" placeholder="Password" />
-      </div> */}
-
-      <button type="button" onClick={handleOnChange}>
-        openModal
+      <button type="button" onClick={openModal}>
+        Open Modal
       </button>
 
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className="text-lg font-bold">Hello!</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* <!-- if there is a button in form, it will close the modal --> */}
-              <button className="btn">Close</button>
-            </form>
+      {open && (
+        <dialog className="modal">
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">Hello!</h3>
+            <input type="text" placeholder="Enter your Username">
+              Username:
+            </input>
+            <input type="text" placeholder="Enter your Password">
+              Password:
+            </input>
+            <button type="button" onClick={() => login}>
+              Login
+            </button>
+            <div className="modal-action">
+              <form method="dialog">
+                {/* <!-- if there is a button in form, it will close the modal --> */}
+                <button className="btn">Close</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+      )}
     </div>
   );
 }
