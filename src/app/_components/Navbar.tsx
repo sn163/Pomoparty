@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ThemedButton } from "./ui/ThemedButton";
+import SignInModal from "./SignIn";
 
 export default function NavBar() {
   return (
@@ -35,16 +36,7 @@ export default function NavBar() {
               Contact
             </ThemedButton>
           </Link>
-          <Link href="#">
-            <ThemedButton
-              className="no-underline hover:no-underline"
-              alt="sign in"
-              variant="link"
-              size="md"
-            >
-              Sign In
-            </ThemedButton>
-          </Link>
+          <SignInModal />
           <Link href="#">
             <ThemedButton alt="sign up" variant="solid" size="md">
               Sign Up
