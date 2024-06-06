@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { ThemedButton } from "./ui/ThemedButton";
 
@@ -12,16 +13,6 @@ export default function SignInModal() {
     ) as HTMLDialogElement | null;
     if (modal) {
       modal.showModal();
-    }
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-    const modal = document.getElementById(
-      "my_modal_3",
-    ) as HTMLDialogElement | null;
-    if (modal) {
-      modal.close();
     }
   };
 
@@ -48,8 +39,17 @@ export default function SignInModal() {
           </form>
           <div className="container">
             <h1 className="text-center text-lg font-bold">
-              {" "}
-              Welcome to Pomoparty!
+              {/* {" "} */}
+              Welcome to P
+              <Image
+                src="/svg/pizza.svg"
+                height={22}
+                width={22}
+                alt="pomoparty-logo"
+                priority={true}
+                className="m-0.5 inline-flex"
+              />
+              MOPARTY!
             </h1>
             <br />
             <div>
@@ -59,7 +59,7 @@ export default function SignInModal() {
                   type="text"
                   name="name"
                   placeholder="Enter your Username"
-                  className="input input-bordered w-full max-w-xs"
+                  className="input input-bordered w-auto max-w-xs"
                   required
                 />
               </label>
@@ -73,10 +73,13 @@ export default function SignInModal() {
                 type="text"
                 name="name"
                 placeholder="Enter your Password"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-auto max-w-xs"
                 required
               />
             </label>
+            <button className="btn btn-ghost btn-md absolute m-0.5">
+              Login
+            </button>
           </div>
         </div>
       </dialog>
